@@ -1,24 +1,22 @@
+import Form from './components/Form';
+import ShowMap from './components/Map';
 import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+interface Props {}
+
+interface State {}
+
+function App(props: Props) {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Points of Interest</h1>
+        <p>You have found intersting places!</p>
       </header>
+      <Form />
+      <ShowMap />
     </div>
   );
 }
