@@ -9,13 +9,16 @@ interface Props {}
 interface State {}
 
 function App(props: Props) {
+  const [counter, setCounter] = useState(0);
+  const incrementCounter = () => setCounter(counter + 1);
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Points of Interest</h1>
-        <p>You have found intersting places!</p>
+        <p>You have found {counter} intersting places!</p>
       </header>
-      <Form />
+      <Form count={incrementCounter} />
       <ShowMap />
     </div>
   );
