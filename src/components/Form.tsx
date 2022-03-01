@@ -15,7 +15,7 @@ function Form({ count }: FormProps) {
       <form>
         <h2>Where do you want to go?</h2>
         <label htmlFor="point_name">Name</label>
-        <input type="text" id="point_name" autoComplete="off" value=""></input>
+        <input type="text" id="point_name" autoComplete="off"></input>
         <label htmlFor="point_lat">Latitude</label>
         <input type="text" id="point_lat"></input>
         <label htmlFor="point_long">Longitude</label>

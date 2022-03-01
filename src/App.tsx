@@ -10,6 +10,7 @@ interface State {}
 
 function App(props: Props) {
   const [counter, setCounter] = useState(0);
+  const [places, setPlaces] = useState([]);
   const incrementCounter = () => setCounter(counter + 1);
 
   return (
