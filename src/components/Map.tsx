@@ -1,9 +1,11 @@
-import React from 'react';
 import daMap from './daMap.png';
+import { IPlaceState } from './../App';
 
-interface Props {}
+interface IMapProps {
+  places: IPlaceState;
+}
 
-function ShowMap(props: Props) {
+function Map(props: IMapProps) {
   return (
     <section className="Comp-map">
       <figure>
@@ -14,4 +16,4 @@ function ShowMap(props: Props) {
   );
 }
 
-export default ShowMap;
+export default Map;

@@ -1,26 +1,42 @@
 import Form from './components/Form';
-import ShowMap from './components/Map';
-import React from 'react';
+import Map from './components/Map';
 import { useState } from 'react';
 import './App.css';
 
-interface Props {}
+interface IPlaces {
+  name: string;
+  lat: string;
+  log: string;
+}
 
-interface State {}
+export interface IPlaceState {
+  [index: number]: null | IPlaces;
+}
 
-function App(props: Props) {
+let initPlaces = [] as IPlaces[];
+
+function App() {
   const [counter, setCounter] = useState(0);
-  const [places, setPlaces] = useState([]);
+  const [places, setPlaces] = useState(initPlaces);
+
   const incrementCounter = () => setCounter(counter + 1);
+
+  const addPlace = (name: string, lat: string, log: string) => {
+    const newPlace = places.slice();
+    newPlace.push({ name: name, lat: lat, log: log });
+    setPlaces(newPlace);
+  };
+
+  console.log(places);
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Points of Interest</h1>
-        <p>You have found {counter} intersting places!</p>
+        <p>You have found {counter} interesting places!</p>
       </header>
-      <Form count={incrementCounter} />
-      <ShowMap />
+      <Form count={incrementCounter} addPlace={addPlace} />
+      <Map places={places} />
     </div>
   );
 }

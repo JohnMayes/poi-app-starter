@@ -1,13 +1,13 @@
-import { useState } from 'react';
-
 interface FormProps {
   count: () => void;
+  addPlace: (name: string, lat: string, log: string) => void;
 }
 
-function Form({ count }: FormProps) {
+function Form(props: FormProps) {
   function handleSubmit(e: any) {
     e.preventDefault();
-    count();
+    props.count();
+    props.addPlace('test1', 'test2', 'test3');
   }
 
   return (
