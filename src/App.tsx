@@ -21,10 +21,7 @@ function generateID() {
 }
 
 function App() {
-  const [counter, setCounter] = useState(0);
   const [places, setPlaces] = useState(initPlaces);
-
-  const incrementCounter = () => setCounter(counter + 1);
 
   const addPlace = (name: string, lat: string, log: string) => {
     const newPlace = places.slice();
@@ -32,14 +29,23 @@ function App() {
     setPlaces(newPlace);
   };
 
+  const removePlace = (key: string) => {
+    const newPlaces = places.slice();
+    const removedIndex = newPlaces.findIndex((obj) => obj.key === key);
+    if (removedIndex > -1) {
+      newPlaces.splice(removedIndex, 1);
+    }
+    setPlaces(newPlaces);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Points of Interest</h1>
-        <p>You have found {counter} interesting places!</p>
+        <p>You have found {places.length} interesting places!</p>
       </header>
-      <Form count={incrementCounter} addPlace={addPlace} places={places} />
-      <Map places={places} />
+      <Form addPlace={addPlace} places={places} />
+      <Map places={places} removePlace={removePlace} />
     </div>
   );
 }

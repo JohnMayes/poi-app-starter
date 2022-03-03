@@ -1,7 +1,6 @@
 import { placeArrType } from './../App';
 
 interface FormProps {
-  count: () => void;
   addPlace: (name: string, lat: string, log: string) => void;
   places: placeArrType;
 }
@@ -9,7 +8,6 @@ interface FormProps {
 function Form(props: FormProps) {
   function handleSubmit(e: any) {
     e.preventDefault();
-    props.count();
     props.addPlace('test1', 'test2', 'test3');
   }
 

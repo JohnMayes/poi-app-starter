@@ -3,6 +3,7 @@ import { placeArrType } from './../App';
 
 interface IMapProps {
   places: placeArrType;
+  removePlace: (key: string) => void;
 }
 
 function Map(props: IMapProps) {
@@ -16,7 +17,11 @@ function Map(props: IMapProps) {
       <hr></hr>
       <div className="capturedPieces">
         {props.places.map((i) => {
-          return <button type="button">{i.name.toString()}</button>;
+          return (
+            <button type="button" onClick={() => props.removePlace(i.key)}>
+              {i.key.toString()}
+            </button>
+          );
         })}
       </div>
     </section>
