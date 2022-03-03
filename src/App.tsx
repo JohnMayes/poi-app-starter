@@ -3,17 +3,22 @@ import Map from './components/Map';
 import { useState } from 'react';
 import './App.css';
 
-interface IPlaces {
+export interface IPlaces {
   name: string;
   lat: string;
   log: string;
+  key: string;
 }
 
-export interface IPlaceState {
-  [index: number]: null | IPlaces;
-}
+export type placeArrType = IPlaces[];
 
-let initPlaces = [] as IPlaces[];
+let initPlaces = [] as placeArrType;
+
+function generateID() {
+  return Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+}
 
 function App() {
   const [counter, setCounter] = useState(0);
@@ -23,11 +28,9 @@ function App() {
 
   const addPlace = (name: string, lat: string, log: string) => {
     const newPlace = places.slice();
-    newPlace.push({ name: name, lat: lat, log: log });
+    newPlace.push({ name: name, lat: lat, log: log, key: generateID() });
     setPlaces(newPlace);
   };
-
-  console.log(places);
 
   return (
     <div className="App">
@@ -35,7 +38,7 @@ function App() {
         <h1>Points of Interest</h1>
         <p>You have found {counter} interesting places!</p>
       </header>
-      <Form count={incrementCounter} addPlace={addPlace} />
+      <Form count={incrementCounter} addPlace={addPlace} places={places} />
       <Map places={places} />
     </div>
   );

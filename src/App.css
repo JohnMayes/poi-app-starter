@@ -61,7 +61,7 @@
 .Comp-map {
   grid-area: map;
   padding-left: 1rem;
-  justify-content: end;
+  align-items: center;
 }
 
 /* Layout */

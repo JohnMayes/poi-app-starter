@@ -1,6 +1,9 @@
+import { placeArrType } from './../App';
+
 interface FormProps {
   count: () => void;
   addPlace: (name: string, lat: string, log: string) => void;
+  places: placeArrType;
 }
 
 function Form(props: FormProps) {
@@ -12,7 +15,7 @@ function Form(props: FormProps) {
 
   return (
     <section className="Comp-form">
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Where do you want to go?</h2>
         <label htmlFor="point_name">Name</label>
         <input type="text" id="point_name" autoComplete="off"></input>
@@ -20,7 +23,7 @@ function Form(props: FormProps) {
         <input type="text" id="point_lat"></input>
         <label htmlFor="point_long">Longitude</label>
         <input type="text" id="point_long"></input>
-        <button onClick={handleSubmit}>Add</button>
+        <button type="submit">{`${props.places[0]?.key}`}</button>
       </form>
     </section>
   );

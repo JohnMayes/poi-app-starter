@@ -1,17 +1,24 @@
 import daMap from './daMap.png';
-import { IPlaceState } from './../App';
+import { placeArrType } from './../App';
 
 interface IMapProps {
-  places: IPlaceState;
+  places: placeArrType;
 }
 
 function Map(props: IMapProps) {
   return (
     <section className="Comp-map">
-      <figure>
+      {/* <figure>
         <img src={daMap} alt="its da Map" />
         <figcaption>Its da Map!</figcaption>
-      </figure>
+      </figure> */}
+      <h1>Places:</h1>
+      <hr></hr>
+      <div className="capturedPieces">
+        {props.places.map((i) => {
+          return <button type="button">{i.name.toString()}</button>;
+        })}
+      </div>
     </section>
   );
 }
