@@ -1,27 +1,66 @@
+import React, { SyntheticEvent, useState } from 'react';
 import { placeArrType } from './../App';
 
-interface FormProps {
+interface IFormProps {
   addPlace: (name: string, lat: string, log: string) => void;
   places: placeArrType;
 }
 
-function Form(props: FormProps) {
-  function handleSubmit(e: any) {
+interface IFormInput {
+  name: string;
+  lat: string;
+  log: string;
+}
+
+let initFormInput = {} as IFormInput;
+
+function Form(props: IFormProps) {
+  const [formInput, setFormInput] = useState(initFormInput);
+
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    props.addPlace('test1', 'test2', 'test3');
-  }
+    props.addPlace(formInput.name, formInput.lat, formInput.log);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    inputType: string
+  ) => {
+    const newInput = { ...formInput };
+    newInput[inputType as keyof IFormInput] = e.currentTarget.value;
+    setFormInput(newInput);
+  };
 
   return (
     <section className="Comp-form">
       <form onSubmit={handleSubmit}>
         <h2>Where do you want to go?</h2>
         <label htmlFor="point_name">Name</label>
-        <input type="text" id="point_name" autoComplete="off"></input>
+        <input
+          type="text"
+          id="point_name"
+          autoComplete="off"
+          onChange={(e) => handleChange(e, 'name')}
+          value={formInput.name}
+          required={true}
+        ></input>
         <label htmlFor="point_lat">Latitude</label>
-        <input type="text" id="point_lat"></input>
+        <input
+          type="text"
+          id="point_lat"
+          onChange={(e) => handleChange(e, 'lat')}
+          value={formInput.lat}
+          required={true}
+        ></input>
         <label htmlFor="point_long">Longitude</label>
-        <input type="text" id="point_long"></input>
-        <button type="submit">{`${props.places[0]?.key}`}</button>
+        <input
+          type="text"
+          id="point_long"
+          onChange={(e) => handleChange(e, 'log')}
+          value={formInput.log}
+          required={true}
+        ></input>
+        <button type="submit">Add</button>
       </form>
     </section>
   );

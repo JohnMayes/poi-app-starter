@@ -19,7 +19,7 @@ function Map(props: IMapProps) {
         {props.places.map((i) => {
           return (
             <button type="button" onClick={() => props.removePlace(i.key)}>
-              {i.key.toString()}
+              {i.name.toString()}
             </button>
           );
         })}
