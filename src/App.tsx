@@ -38,8 +38,6 @@ function App() {
     setPlaces(newPlaces);
   };
 
-  console.log(places);
-
   return (
     <div className="App">
       <header className="App-header">

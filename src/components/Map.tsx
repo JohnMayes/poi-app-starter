@@ -15,7 +15,7 @@ function Map(props: IMapProps) {
       </figure> */}
       <h1>Places:</h1>
       <hr></hr>
-      <div className="capturedPieces">
+      <div className="placeButtons">
         {props.places.map((i) => {
           return (
             <button type="button" onClick={() => props.removePlace(i.key)}>

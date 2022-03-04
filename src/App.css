@@ -44,9 +44,8 @@
 .App {
   display: grid;
   grid-template-areas:
-    'head head head'
-    'form map map'
-    'form map map';
+    'head head'
+    'form map';
 }
 
 .App-header {
@@ -62,6 +61,17 @@
   grid-area: map;
   padding-left: 1rem;
   align-items: center;
+}
+
+.placeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeButtons button {
+  margin: 0.5rem;
 }
 
 /* Layout */

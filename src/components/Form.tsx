@@ -43,6 +43,7 @@ function Form(props: IFormProps) {
           onChange={(e) => handleChange(e, 'name')}
           value={formInput.name}
           required={true}
+          name={'name'}
         ></input>
         <label htmlFor="point_lat">Latitude</label>
         <input
@@ -51,6 +52,7 @@ function Form(props: IFormProps) {
           onChange={(e) => handleChange(e, 'lat')}
           value={formInput.lat}
           required={true}
+          name={'lat'}
         ></input>
         <label htmlFor="point_long">Longitude</label>
         <input
@@ -59,6 +61,7 @@ function Form(props: IFormProps) {
           onChange={(e) => handleChange(e, 'log')}
           value={formInput.log}
           required={true}
+          name={'log'}
         ></input>
         <button type="submit">Add</button>
       </form>
