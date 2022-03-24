@@ -1,4 +1,5 @@
 import Form from './components/Form';
+import EditForm from './components/EditForm';
 import Map from './components/Map';
 import { useState } from 'react';
 import './App.css';
@@ -58,12 +59,17 @@ function App() {
         <h1>Points of Interest</h1>
         <p>You have found {places.length} interesting places!</p>
       </header>
-      <Form
-        addPlace={addPlace}
-        places={places}
-        edit={isEditing}
-        placeToEdit={placeToEdit}
-      />
+      {isEditing ? (
+        <EditForm
+          addPlace={addPlace}
+          places={places}
+          edit={isEditing}
+          placeToEdit={placeToEdit}
+        />
+      ) : (
+        <Form addPlace={addPlace} places={places} />
+      )}
+
       <Map places={places} removePlace={removePlace} editPlace={editPlace} />
     </div>
   );

@@ -4,6 +4,8 @@ import { placeArrType, IPlaces } from './../App';
 interface IFormProps {
   addPlace: (name: string, lat: string, log: string) => void;
   places: placeArrType;
+  edit: boolean;
+  placeToEdit: IPlaces;
 }
 
 interface IFormInput {
@@ -12,9 +14,11 @@ interface IFormInput {
   log: string;
 }
 
+// INIT FORM INPUTS AS INPUT TO CHANGE
+
 let initFormInput = {} as IFormInput;
 
-function Form(props: IFormProps) {
+function EditForm(props: IFormProps) {
   const [formInput, setFormInput] = useState(initFormInput);
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -37,7 +41,7 @@ function Form(props: IFormProps) {
   return (
     <section className="Comp-form">
       <form onSubmit={handleSubmit}>
-        <h2>Where do you want to go?</h2>
+        <h2>Edit Place</h2>
 
         <label htmlFor="point_name">Name</label>
         <input
@@ -45,7 +49,7 @@ function Form(props: IFormProps) {
           id="point_name"
           autoComplete="off"
           onChange={(e) => handleChange(e, 'name')}
-          value={formInput.name}
+          value={props.edit ? props.placeToEdit.name : formInput.name}
           required={true}
           name={'name'}
         ></input>
@@ -55,7 +59,7 @@ function Form(props: IFormProps) {
           type="text"
           id="point_lat"
           onChange={(e) => handleChange(e, 'lat')}
-          value={formInput.lat}
+          value={props.edit ? props.placeToEdit.lat : formInput.lat}
           required={true}
           name={'lat'}
         ></input>
@@ -65,15 +69,15 @@ function Form(props: IFormProps) {
           type="text"
           id="point_long"
           onChange={(e) => handleChange(e, 'log')}
-          value={formInput.log}
+          value={props.edit ? props.placeToEdit.log : formInput.log}
           required={true}
           name={'log'}
         ></input>
 
-        <button type="submit">Add</button>
+        <button type="submit">{props.edit ? 'Edit' : 'Add'}</button>
       </form>
     </section>
   );
 }
 
-export default Form;
+export default EditForm;
