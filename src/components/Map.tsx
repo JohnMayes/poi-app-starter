@@ -4,6 +4,7 @@ import { placeArrType } from './../App';
 interface IMapProps {
   places: placeArrType;
   removePlace: (key: string) => void;
+  editPlace: (key: string) => void;
 }
 
 function Map(props: IMapProps) {
@@ -18,7 +19,7 @@ function Map(props: IMapProps) {
       <div className="placeButtons">
         {props.places.map((i) => {
           return (
-            <button type="button" onClick={() => props.removePlace(i.key)}>
+            <button type="button" onClick={() => props.editPlace(i.key)}>
               {i.name.toString()}
             </button>
           );
