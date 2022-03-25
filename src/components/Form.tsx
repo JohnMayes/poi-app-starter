@@ -1,9 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { placeArrType, IPlaces } from './../App';
 
 interface IFormProps {
   addPlace: (name: string, lat: string, log: string) => void;
-  places: placeArrType;
 }
 
 interface IFormInput {

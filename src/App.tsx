@@ -43,14 +43,26 @@ function App() {
   const removePlace = (key: string) => {
     const remainingPlaces = places.filter((place) => key !== place.key);
     setPlaces(remainingPlaces);
+    setIsEditing(!isEditing);
   };
 
-  const editPlace = (key: string) => {
+  const loadPlaceToEdit = (key: string) => {
     setIsEditing(true);
     const edit = places.find((place) => key === place.key);
     if (edit !== undefined) {
       setPlaceToEdit(edit);
     }
+  };
+
+  const editPlace = (key: string, name: string, lat: string, log: string) => {
+    const newPlaces = places.map((place) => ({
+      ...place,
+      name: place.key === key ? name : place.name,
+      lat: place.key === key ? lat : place.lat,
+      log: place.key === key ? log : place.log,
+    }));
+    setPlaces(newPlaces);
+    setIsEditing(!isEditing);
   };
 
   return (
@@ -61,16 +73,15 @@ function App() {
       </header>
       {isEditing ? (
         <EditForm
-          addPlace={addPlace}
-          places={places}
-          edit={isEditing}
           placeToEdit={placeToEdit}
+          removePlace={removePlace}
+          editPlace={editPlace}
         />
       ) : (
-        <Form addPlace={addPlace} places={places} />
+        <Form addPlace={addPlace} />
       )}
 
-      <Map places={places} removePlace={removePlace} editPlace={editPlace} />
+      <Map places={places} loadPlaceToEdit={loadPlaceToEdit} />
     </div>
   );
 }

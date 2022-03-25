@@ -1,11 +1,10 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { placeArrType, IPlaces } from './../App';
+import { IPlaces } from './../App';
 
 interface IFormProps {
-  addPlace: (name: string, lat: string, log: string) => void;
-  places: placeArrType;
-  edit: boolean;
   placeToEdit: IPlaces;
+  removePlace: (key: string) => void;
+  editPlace: (key: string, name: string, lat: string, log: string) => void;
 }
 
 interface IFormInput {
@@ -23,7 +22,12 @@ function EditForm(props: IFormProps) {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    props.addPlace(formInput.name, formInput.lat, formInput.log);
+    props.editPlace(
+      props.placeToEdit.key,
+      formInput.name,
+      formInput.lat,
+      formInput.log
+    );
     formInput.name = '';
     formInput.lat = '';
     formInput.log = '';
@@ -38,10 +42,14 @@ function EditForm(props: IFormProps) {
     setFormInput(newInput);
   };
 
+  const divStyle = {
+    color: 'red',
+  };
+
   return (
     <section className="Comp-form">
       <form onSubmit={handleSubmit}>
-        <h2>Edit Place</h2>
+        <h2 style={divStyle}>Edit {props.placeToEdit.name}</h2>
 
         <label htmlFor="point_name">Name</label>
         <input
@@ -49,7 +57,7 @@ function EditForm(props: IFormProps) {
           id="point_name"
           autoComplete="off"
           onChange={(e) => handleChange(e, 'name')}
-          value={props.edit ? props.placeToEdit.name : formInput.name}
+          value={formInput.name}
           required={true}
           name={'name'}
         ></input>
@@ -59,7 +67,7 @@ function EditForm(props: IFormProps) {
           type="text"
           id="point_lat"
           onChange={(e) => handleChange(e, 'lat')}
-          value={props.edit ? props.placeToEdit.lat : formInput.lat}
+          value={formInput.lat}
           required={true}
           name={'lat'}
         ></input>
@@ -69,12 +77,18 @@ function EditForm(props: IFormProps) {
           type="text"
           id="point_long"
           onChange={(e) => handleChange(e, 'log')}
-          value={props.edit ? props.placeToEdit.log : formInput.log}
+          value={formInput.log}
           required={true}
           name={'log'}
         ></input>
 
-        <button type="submit">{props.edit ? 'Edit' : 'Add'}</button>
+        <button type="submit">Edit</button>
+        <button
+          type="button"
+          onClick={() => props.removePlace(props.placeToEdit.key)}
+        >
+          Delete
+        </button>
       </form>
     </section>
   );
