@@ -44,6 +44,7 @@ function Form(props: IFormProps) {
           autoComplete="off"
           onChange={(e) => handleChange(e, 'name')}
           value={formInput.name}
+          placeholder="Name"
           required={true}
           name={'name'}
         ></input>
@@ -54,6 +55,7 @@ function Form(props: IFormProps) {
           id="point_lat"
           onChange={(e) => handleChange(e, 'lat')}
           value={formInput.lat}
+          placeholder="00.0000"
           required={true}
           name={'lat'}
         ></input>
@@ -64,6 +66,7 @@ function Form(props: IFormProps) {
           id="point_long"
           onChange={(e) => handleChange(e, 'log')}
           value={formInput.log}
+          placeholder="00.0000"
           required={true}
           name={'log'}
         ></input>

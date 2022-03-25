@@ -65,11 +65,19 @@ function App() {
     setIsEditing(!isEditing);
   };
 
+  const latRegex =
+    /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/;
+  const longRegex =
+    /^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/;
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Points of Interest</h1>
-        <p>You have found {places.length} interesting places!</p>
+        <p>
+          You have found {places.length} interesting place
+          {places.length === 1 ? '' : 's'}!
+        </p>
       </header>
       {isEditing ? (
         <EditForm
