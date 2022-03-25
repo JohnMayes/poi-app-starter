@@ -20,6 +20,12 @@ let initFormInput = {} as IFormInput;
 function EditForm(props: IFormProps) {
   const [formInput, setFormInput] = useState(initFormInput);
 
+  // setFormInput({
+  //   name: props.placeToEdit.name,
+  //   lat: props.placeToEdit.lat,
+  //   log: props.placeToEdit.log,
+  // });
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     props.editPlace(
@@ -58,6 +64,7 @@ function EditForm(props: IFormProps) {
           autoComplete="off"
           onChange={(e) => handleChange(e, 'name')}
           value={formInput.name}
+          placeholder={props.placeToEdit.name}
           required={true}
           name={'name'}
         ></input>
@@ -68,6 +75,7 @@ function EditForm(props: IFormProps) {
           id="point_lat"
           onChange={(e) => handleChange(e, 'lat')}
           value={formInput.lat}
+          placeholder={props.placeToEdit.lat}
           required={true}
           name={'lat'}
         ></input>
@@ -78,6 +86,7 @@ function EditForm(props: IFormProps) {
           id="point_long"
           onChange={(e) => handleChange(e, 'log')}
           value={formInput.log}
+          placeholder={props.placeToEdit.log}
           required={true}
           name={'log'}
         ></input>
