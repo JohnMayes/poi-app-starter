@@ -4,13 +4,13 @@ import { IPlaces } from './../App';
 interface IFormProps {
   placeToEdit: IPlaces;
   removePlace: (key: string) => void;
-  editPlace: (key: string, name: string, lat: string, log: string) => void;
+  editPlace: (key: string, name: string, lat: string, lng: string) => void;
 }
 
 interface IFormInput {
   name: string;
   lat: string;
-  log: string;
+  lng: string;
 }
 
 // INIT FORM INPUTS AS INPUT TO CHANGE
@@ -23,7 +23,7 @@ function EditForm(props: IFormProps) {
   // setFormInput({
   //   name: props.placeToEdit.name,
   //   lat: props.placeToEdit.lat,
-  //   log: props.placeToEdit.log,
+  //   lng: props.placeToEdit.lng,
   // });
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -32,11 +32,11 @@ function EditForm(props: IFormProps) {
       props.placeToEdit.key,
       formInput.name,
       formInput.lat,
-      formInput.log
+      formInput.lng
     );
     formInput.name = '';
     formInput.lat = '';
-    formInput.log = '';
+    formInput.lng = '';
   };
 
   const handleChange = (
@@ -84,11 +84,11 @@ function EditForm(props: IFormProps) {
         <input
           type="text"
           id="point_long"
-          onChange={(e) => handleChange(e, 'log')}
-          value={formInput.log}
-          placeholder={props.placeToEdit.log}
+          onChange={(e) => handleChange(e, 'lng')}
+          value={formInput.lng}
+          placeholder={props.placeToEdit.lng}
           required={true}
-          name={'log'}
+          name={'lng'}
         ></input>
 
         <button type="submit">Edit</button>

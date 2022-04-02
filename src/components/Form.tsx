@@ -1,13 +1,13 @@
 import React, { SyntheticEvent, useState } from 'react';
 
 interface IFormProps {
-  addPlace: (name: string, lat: string, log: string) => void;
+  addPlace: (name: string, lat: string, lng: string) => void;
 }
 
 interface IFormInput {
   name: string;
   lat: string;
-  log: string;
+  lng: string;
 }
 
 let initFormInput = {} as IFormInput;
@@ -17,10 +17,10 @@ function Form(props: IFormProps) {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    props.addPlace(formInput.name, formInput.lat, formInput.log);
+    props.addPlace(formInput.name, formInput.lat, formInput.lng);
     formInput.name = '';
     formInput.lat = '';
-    formInput.log = '';
+    formInput.lng = '';
   };
 
   const handleChange = (
@@ -64,11 +64,11 @@ function Form(props: IFormProps) {
         <input
           type="text"
           id="point_long"
-          onChange={(e) => handleChange(e, 'log')}
-          value={formInput.log}
+          onChange={(e) => handleChange(e, 'lng')}
+          value={formInput.lng}
           placeholder="00.0000"
           required={true}
-          name={'log'}
+          name={'lng'}
         ></input>
 
         <button type="submit">Add</button>
