@@ -7,9 +7,7 @@ interface IMapProps {
   loadPlaceToEdit: (key: string) => void;
 }
 
-const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN as string;
-
-mapboxgl.accessToken = accessToken;
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN as string;
 
 function Map(props: IMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -19,32 +17,30 @@ function Map(props: IMapProps) {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current as string | HTMLElement,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-104.9876, 39.7405],
-      zoom: 12.5,
+      center: [-96, 37.8],
+      zoom: 3,
     });
 
     // add navigation control (the +/- zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+    map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        // When active the map will receive updates to the device's location as it changes.
+        trackUserLocation: true,
+        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+        showUserHeading: true,
+      })
+    );
 
     // clean up on unmount
     return () => map.remove();
   }, []); // END USE EFFECT
 
-  return (
-    <div className="map-container" ref={mapContainerRef} />
-    // <section className="Comp-map">
-    //   <h1>Places:</h1>
-    //   <div className="placeButtons">
-    //     {props.places.map((i) => {
-    //       return (
-    //         <button type="button" onClick={() => props.loadPlaceToEdit(i.key)}>
-    //           {i.name.toString()}
-    //         </button>
-    //       );
-    //     })}
-    //   </div>
-    // </section>
-  );
+  return <div className="map-container" ref={mapContainerRef} />;
 }
 
 export default Map;
