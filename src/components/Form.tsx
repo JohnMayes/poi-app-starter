@@ -1,16 +1,16 @@
 import React, { SyntheticEvent, useState } from 'react';
 
 interface IFormProps {
-  addPlace: (name: string, lat: string, lng: string) => void;
+  addPlace: (name: string, lat: number, lng: number) => void;
 }
 
 interface IFormInput {
   name: string;
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
 }
 
-let initFormInput = {} as IFormInput;
+let initFormInput: IFormInput = { name: 'blank', lat: 0, lng: 0 };
 
 function Form(props: IFormProps) {
   const [formInput, setFormInput] = useState(initFormInput);
@@ -19,16 +19,25 @@ function Form(props: IFormProps) {
     e.preventDefault();
     props.addPlace(formInput.name, formInput.lat, formInput.lng);
     formInput.name = '';
-    formInput.lat = '';
-    formInput.lng = '';
+    formInput.lat = 0;
+    formInput.lng = 0;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    inputType: string
-  ) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newInput = { ...formInput };
-    newInput[inputType as keyof IFormInput] = e.currentTarget.value;
+    newInput.name = e.currentTarget.value;
+    setFormInput(newInput);
+  };
+
+  const handleLatChange = (e: any) => {
+    const newInput = { ...formInput };
+    newInput.lat = e.currentTarget.value;
+    setFormInput(newInput);
+  };
+
+  const handleLngChange = (e: any) => {
+    const newInput = { ...formInput };
+    newInput.lng = e.currentTarget.value;
     setFormInput(newInput);
   };
 
@@ -42,7 +51,7 @@ function Form(props: IFormProps) {
           type="text"
           id="point_name"
           autoComplete="off"
-          onChange={(e) => handleChange(e, 'name')}
+          onChange={(e) => handleNameChange(e)}
           value={formInput.name}
           placeholder="Name"
           required={true}
@@ -51,9 +60,9 @@ function Form(props: IFormProps) {
 
         <label htmlFor="point_lat">Latitude</label>
         <input
-          type="text"
+          type="number"
           id="point_lat"
-          onChange={(e) => handleChange(e, 'lat')}
+          onInput={(e) => handleLatChange(e)}
           value={formInput.lat}
           placeholder="00.0000"
           required={true}
@@ -62,9 +71,9 @@ function Form(props: IFormProps) {
 
         <label htmlFor="point_long">Longitude</label>
         <input
-          type="text"
+          type="number"
           id="point_long"
-          onChange={(e) => handleChange(e, 'lng')}
+          onChange={(e) => handleLngChange(e)}
           value={formInput.lng}
           placeholder="00.0000"
           required={true}

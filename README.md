@@ -26,3 +26,4 @@ Mapbox resources are given below with a specific example of putting markers on t
 
 - UI rehaul
 - Add marker layers
+  - _bug_ setPlaces passing strings instead of numbers?

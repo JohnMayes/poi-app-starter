@@ -4,13 +4,13 @@ import { IPlaces } from './../App';
 interface IFormProps {
   placeToEdit: IPlaces;
   removePlace: (key: string) => void;
-  editPlace: (key: string, name: string, lat: string, lng: string) => void;
+  editPlace: (key: string, name: string, lat: number, lng: number) => void;
 }
 
 interface IFormInput {
   name: string;
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
 }
 
 // INIT FORM INPUTS AS INPUT TO CHANGE
@@ -35,16 +35,25 @@ function EditForm(props: IFormProps) {
       formInput.lng
     );
     formInput.name = '';
-    formInput.lat = '';
-    formInput.lng = '';
+    formInput.lat = 0;
+    formInput.lng = 0;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    inputType: string
-  ) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newInput = { ...formInput };
-    newInput[inputType as keyof IFormInput] = e.currentTarget.value;
+    newInput.name = e.currentTarget.value;
+    setFormInput(newInput);
+  };
+
+  const handleLatChange = (e: any) => {
+    const newInput = { ...formInput };
+    newInput.lat = e.currentTarget.value;
+    setFormInput(newInput);
+  };
+
+  const handleLngChange = (e: any) => {
+    const newInput = { ...formInput };
+    newInput.lng = e.currentTarget.value;
     setFormInput(newInput);
   };
 
@@ -62,7 +71,7 @@ function EditForm(props: IFormProps) {
           type="text"
           id="point_name"
           autoComplete="off"
-          onChange={(e) => handleChange(e, 'name')}
+          onChange={(e) => handleNameChange(e)}
           value={formInput.name}
           placeholder={props.placeToEdit.name}
           required={true}
@@ -71,22 +80,20 @@ function EditForm(props: IFormProps) {
 
         <label htmlFor="point_lat">Latitude</label>
         <input
-          type="text"
+          type="number"
           id="point_lat"
-          onChange={(e) => handleChange(e, 'lat')}
+          onChange={(e) => handleLatChange(e)}
           value={formInput.lat}
-          placeholder={props.placeToEdit.lat}
           required={true}
           name={'lat'}
         ></input>
 
         <label htmlFor="point_long">Longitude</label>
         <input
-          type="text"
+          type="number"
           id="point_long"
-          onChange={(e) => handleChange(e, 'lng')}
+          onChange={(e) => handleLngChange(e)}
           value={formInput.lng}
-          placeholder={props.placeToEdit.lng}
           required={true}
           name={'lng'}
         ></input>

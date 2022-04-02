@@ -6,8 +6,8 @@ import './App.css';
 
 export interface IPlaces {
   name: string;
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
   key: string;
 }
 
@@ -17,8 +17,8 @@ let initPlaces = [] as placeArrType;
 
 const initEdit: IPlaces = {
   name: '',
-  lat: '',
-  lng: '',
+  lat: 0,
+  lng: 0,
   key: '',
 };
 
@@ -33,7 +33,9 @@ function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [placeToEdit, setPlaceToEdit] = useState(initEdit);
 
-  const addPlace = (name: string, lat: string, lng: string) => {
+  console.log(places);
+
+  const addPlace = (name: string, lat: number, lng: number) => {
     setIsEditing(false);
     const newPlace = places.slice();
     newPlace.push({ name: name, lat: lat, lng: lng, key: generateID() });
@@ -54,7 +56,7 @@ function App() {
     }
   };
 
-  const editPlace = (key: string, name: string, lat: string, lng: string) => {
+  const editPlace = (key: string, name: string, lat: number, lng: number) => {
     const newPlaces = places.map((place) => ({
       ...place,
       name: place.key === key ? name : place.name,
