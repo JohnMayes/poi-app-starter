@@ -36,9 +36,14 @@ function Map(props: IMapProps) {
       })
     );
 
+    props.places.map((place) => {
+      const lngLat: [number, number] = [place.lng, place.lat];
+      new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
+    });
+
     // clean up on unmount
     return () => map.remove();
-  }, []); // END USE EFFECT
+  }, [props.places]); // END USE EFFECT
 
   return <div className="map-container" ref={mapContainerRef} />;
 }
