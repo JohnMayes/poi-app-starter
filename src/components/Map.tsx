@@ -1,6 +1,9 @@
 import { placeArrType } from './../App';
-import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
+import mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 interface IMapProps {
   places: placeArrType;
@@ -33,6 +36,12 @@ function Map(props: IMapProps) {
         trackUserLocation: true,
         // Draw an arrow next to the location dot to indicate which direction the device is heading.
         showUserHeading: true,
+      })
+    );
+
+    map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
       })
     );
 
