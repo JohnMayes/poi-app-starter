@@ -1,6 +1,6 @@
 import Form from './components/Form';
 import EditForm from './components/EditForm';
-import Map from './components/Map';
+import DisplayMap from './components/Map';
 import { useState } from 'react';
 import './App.css';
 
@@ -91,7 +91,7 @@ function App() {
         <Form addPlace={addPlace} />
       )}
 
-      <Map places={places} loadPlaceToEdit={loadPlaceToEdit} />
+      <DisplayMap places={places} loadPlaceToEdit={loadPlaceToEdit} />
     </div>
   );
 }
