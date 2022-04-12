@@ -3,6 +3,7 @@ import EditForm from './components/EditForm';
 import DisplayMap from './components/Map';
 import { useState } from 'react';
 import './App.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 export interface IPlaces {
   name: string;

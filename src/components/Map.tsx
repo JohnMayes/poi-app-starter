@@ -2,6 +2,7 @@ import { placeArrType } from './../App';
 import { useRef, useCallback, useState } from 'react';
 import MapGL, { GeolocateControl, NavigationControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import GeocoderControl from './geocoder-control';
 
 interface IMapProps {
   places: placeArrType;
@@ -52,6 +53,7 @@ function DisplayMap(props: IMapProps) {
       >
         <NavigationControl position="bottom-right" />
         <GeolocateControl />
+        <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
       </MapGL>
     </div>
   );
