@@ -45,7 +45,13 @@ function DisplayMap(props: IMapProps) {
           setTemp={props.setTemp}
         />
         {props.places.map((place) => {
-          return <Marker longitude={place.lng} latitude={place.lat}></Marker>;
+          return (
+            <Marker
+              longitude={place.lng}
+              latitude={place.lat}
+              onClick={() => props.loadPlaceToEdit(place.key)}
+            ></Marker>
+          );
         })}
       </MapGL>
     </div>
