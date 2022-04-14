@@ -1,6 +1,10 @@
 import { placeArrType } from './../App';
 import { useRef, useState } from 'react';
-import MapGL, { GeolocateControl, NavigationControl } from 'react-map-gl';
+import MapGL, {
+  GeolocateControl,
+  NavigationControl,
+  Marker,
+} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import GeocoderControl from './geocoder-control';
 
@@ -35,6 +39,9 @@ function DisplayMap(props: IMapProps) {
         <NavigationControl position="bottom-right" />
         <GeolocateControl />
         <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
+        {props.places.map((place) => {
+          return <Marker longitude={place.lng} latitude={place.lat}></Marker>;
+        })}
       </MapGL>
     </div>
   );
