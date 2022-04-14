@@ -11,6 +11,7 @@ import GeocoderControl from './geocoder-control';
 interface IMapProps {
   places: placeArrType;
   loadPlaceToEdit: (key: string) => void;
+  setTemp: (obj: { name: string; center: number[] }) => void;
 }
 
 const MAPBOX_TOKEN =
@@ -38,7 +39,11 @@ function DisplayMap(props: IMapProps) {
       >
         <NavigationControl position="bottom-right" />
         <GeolocateControl />
-        <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
+        <GeocoderControl
+          mapboxAccessToken={MAPBOX_TOKEN}
+          position="top-left"
+          setTemp={props.setTemp}
+        />
         {props.places.map((place) => {
           return <Marker longitude={place.lng} latitude={place.lat}></Marker>;
         })}

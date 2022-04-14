@@ -45,6 +45,8 @@ type GeocoderControlProps = {
   onResults?: (e: object) => void;
   onResult?: (e: object) => void;
   onError?: (e: object) => void;
+
+  setTemp: (obj: { name: string; center: number[] }) => void;
 };
 
 /* eslint-disable complexity,max-statements */
@@ -113,6 +115,7 @@ export default function GeocoderControl(props: GeocoderControlProps) {
         props.onResult(evt);
 
         const { result } = evt;
+        props.setTemp({ name: result.place_name, center: result.center });
         const location =
           result &&
           (result.center ||

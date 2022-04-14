@@ -12,6 +12,16 @@ export interface IPlaces {
   key: string;
 }
 
+interface tempMaker {
+  name: string;
+  center: number[];
+}
+
+const initTemp: tempMaker = {
+  name: 'none',
+  center: [0, 0],
+};
+
 export type placeArrType = IPlaces[];
 
 let initPlaces = [] as placeArrType;
@@ -30,16 +40,28 @@ function generateID() {
 }
 
 function App() {
+  const [tempMaker, setTempMarker] = useState(initTemp);
   const [places, setPlaces] = useState(initPlaces);
   const [isEditing, setIsEditing] = useState(false);
   const [placeToEdit, setPlaceToEdit] = useState(initEdit);
 
-  console.log(places);
+  console.log(tempMaker);
 
   const addPlace = (name: string, lat: number, lng: number) => {
     setIsEditing(false);
     const newPlace = places.slice();
     newPlace.push({ name: name, lat: lat, lng: lng, key: generateID() });
+    setPlaces(newPlace);
+  };
+
+  const addPlaceTemp = (obj: any) => {
+    const newPlace = places.slice();
+    newPlace.push({
+      name: tempMaker.name,
+      lat: tempMaker.center[1],
+      lng: tempMaker.center[0],
+      key: generateID(),
+    });
     setPlaces(newPlace);
   };
 
@@ -68,10 +90,14 @@ function App() {
     setIsEditing(!isEditing);
   };
 
-  const latRegex =
-    /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/;
-  const longRegex =
-    /^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/;
+  const addTemp = (obj: tempMaker) => {
+    setTempMarker(obj);
+  };
+
+  // const latRegex =
+  //   /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/;
+  // const longRegex =
+  //   /^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/;
 
   return (
     <div className="App">
@@ -92,7 +118,12 @@ function App() {
         <Form addPlace={addPlace} />
       )}
 
-      <DisplayMap places={places} loadPlaceToEdit={loadPlaceToEdit} />
+      <DisplayMap
+        places={places}
+        loadPlaceToEdit={loadPlaceToEdit}
+        setTemp={addTemp}
+      />
+      <button onClick={addPlaceTemp}>AddTemp</button>
     </div>
   );
 }
