@@ -52,12 +52,12 @@ function DisplayMap(props: IMapProps) {
         ref={mapRef}
         {...viewState}
         onMove={(evt) => setViewState(evt.viewState)}
-        style={{ width: 600, height: 400 }}
+        // style={{ width: 600, height: 400 }}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxAccessToken={MAPBOX_TOKEN}
       >
         <NavigationControl position="bottom-right" />
-        <GeolocateControl />
+        <GeolocateControl position="bottom-right" />
         <GeocoderControl
           mapboxAccessToken={MAPBOX_TOKEN}
           position="top-left"
