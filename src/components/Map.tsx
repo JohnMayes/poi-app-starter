@@ -4,6 +4,7 @@ import MapGL, {
   GeolocateControl,
   NavigationControl,
   Marker,
+  Popup,
 } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import GeocoderControl from './geocoder-control';
@@ -24,6 +25,7 @@ function DisplayMap(props: IMapProps) {
     latitude: 40,
     zoom: 3.5,
   });
+  const [popup, setPopup] = useState(false);
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef(null);
@@ -51,14 +53,33 @@ function DisplayMap(props: IMapProps) {
               longitude={place.lng}
               latitude={place.lat}
               anchor="bottom"
-              onClick={() => props.loadPlaceToEdit(place.key)}
+              onClick={() => setPopup(true)}
             >
               <div>
-                <Pin />
+                <Pin
+                // onClick={() => {
+                //   setPopup(true);
+                // }}
+                />
               </div>
             </Marker>
           );
         })}
+        {popup && (
+          <Popup
+            anchor="top"
+            longitude={0}
+            latitude={0}
+            closeOnClick={false}
+            onClose={() => setPopup(false)}
+          >
+            <div>
+              <a target="_new" href={`http://en.wikipedia.org/`}>
+                Wikipedia
+              </a>
+            </div>
+          </Popup>
+        )}
       </MapGL>
     </div>
   );
