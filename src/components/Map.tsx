@@ -7,6 +7,7 @@ import MapGL, {
 } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import GeocoderControl from './geocoder-control';
+import Pin from './Pin';
 
 interface IMapProps {
   places: placeArrType;
@@ -49,8 +50,13 @@ function DisplayMap(props: IMapProps) {
             <Marker
               longitude={place.lng}
               latitude={place.lat}
+              anchor="bottom"
               onClick={() => props.loadPlaceToEdit(place.key)}
-            ></Marker>
+            >
+              <div>
+                <Pin />
+              </div>
+            </Marker>
           );
         })}
       </MapGL>

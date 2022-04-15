@@ -27,3 +27,9 @@ Mapbox resources are given below with a specific example of putting markers on t
 - UI rehaul
 - Add marker layers
   - Add popup to markers
+
+# Features
+
+- Pins
+  - Pin on geolocate
+  - Color picker
