@@ -1,5 +1,5 @@
-import { placeArrType } from './../App';
-import { useRef, useState } from 'react';
+import { IPlaces, placeArrType } from './../App';
+import { useRef, useState, useMemo } from 'react';
 import MapGL, {
   GeolocateControl,
   NavigationControl,
@@ -25,10 +25,26 @@ function DisplayMap(props: IMapProps) {
     latitude: 40,
     zoom: 3.5,
   });
-  const [popup, setPopup] = useState(false);
+  const [popup, setPopup] = useState<null | IPlaces>(null);
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef(null);
+
+  const pins = useMemo(
+    () =>
+      props.places.map((place) => (
+        <Marker
+          key={`marker-${place.key}`}
+          longitude={place.lng}
+          latitude={place.lat}
+          anchor="bottom"
+          onClick={() => setPopup(place)}
+        >
+          <Pin color="#610000" opacity="1" />
+        </Marker>
+      )),
+    [props.places]
+  );
 
   return (
     <div className="map-container" ref={mapContainerRef}>
@@ -47,37 +63,21 @@ function DisplayMap(props: IMapProps) {
           position="top-left"
           setTemp={props.setTemp}
         />
-        {props.places.map((place) => {
-          return (
-            <Marker
-              longitude={place.lng}
-              latitude={place.lat}
-              anchor="bottom"
-              onClick={() => setPopup(true)}
-            >
-              <div>
-                <Pin
-                // onClick={() => {
-                //   setPopup(true);
-                // }}
-                />
-              </div>
-            </Marker>
-          );
-        })}
+
+        {pins}
+
         {popup && (
           <Popup
             anchor="top"
-            longitude={0}
-            latitude={0}
+            longitude={popup.lng}
+            latitude={popup.lat}
             closeOnClick={false}
-            onClose={() => setPopup(false)}
+            onClose={() => setPopup(null)}
           >
-            <div>
-              <a target="_new" href={`http://en.wikipedia.org/`}>
-                Wikipedia
-              </a>
-            </div>
+            <div>{popup.name}</div>
+            <button onClick={() => props.loadPlaceToEdit(popup.key)}>
+              Edit
+            </button>
           </Popup>
         )}
       </MapGL>

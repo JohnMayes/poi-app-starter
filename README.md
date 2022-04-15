@@ -31,5 +31,4 @@ Mapbox resources are given below with a specific example of putting markers on t
 # Features
 
 - Pins
-  - Pin on geolocate
   - Color picker

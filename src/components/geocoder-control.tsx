@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useControl, Marker, ControlPosition } from 'react-map-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import Pin from './Pin';
 
 type GeocoderControlProps = {
   mapboxAccessToken: string;
@@ -126,7 +127,10 @@ export default function GeocoderControl(props: GeocoderControlProps) {
               {...props.marker}
               longitude={location[0]}
               latitude={location[1]}
-            />
+              anchor="bottom"
+            >
+              <Pin opacity="0.3" color="blue" />
+            </Marker>
           );
         } else {
           setMarker(null);

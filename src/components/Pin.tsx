@@ -1,12 +1,18 @@
 import * as React from 'react';
 
-const pinStyle = {
-  cursor: 'pointer',
-  fill: '#610000',
-  stroke: '#000',
-};
+interface IPinProps {
+  color?: string;
+  opacity?: string;
+}
 
-function Pin({ size = 20, onClick }: { size?: number; onClick?: () => void }) {
+function Pin(props: IPinProps) {
+  let pinStyle = {
+    cursor: 'pointer',
+    fill: `${props.color}`,
+    stroke: '#000',
+    opacity: `${props.opacity}`,
+  };
+
   return (
     <svg
       width="20"

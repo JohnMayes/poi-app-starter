@@ -40,7 +40,7 @@ function generateID() {
 }
 
 function App() {
-  const [tempMaker, setTempMarker] = useState(initTemp);
+  const [tempMaker, setTempMarker] = useState<tempMaker | undefined>(initTemp);
   const [places, setPlaces] = useState(initPlaces);
   const [isEditing, setIsEditing] = useState(false);
   const [placeToEdit, setPlaceToEdit] = useState(initEdit);
@@ -55,14 +55,18 @@ function App() {
   };
 
   const addPlaceTemp = (obj: any) => {
-    const newPlace = places.slice();
-    newPlace.push({
-      name: tempMaker.name,
-      lat: tempMaker.center[1],
-      lng: tempMaker.center[0],
-      key: generateID(),
-    });
-    setPlaces(newPlace);
+    if (tempMaker !== undefined) {
+      const newPlace = places.slice();
+      newPlace.push({
+        name: tempMaker.name,
+        lat: tempMaker.center[1],
+        lng: tempMaker.center[0],
+        key: generateID(),
+      });
+      setPlaces(newPlace);
+    }
+
+    setTempMarker(undefined);
   };
 
   const removePlace = (key: string) => {
@@ -122,6 +126,7 @@ function App() {
         places={places}
         loadPlaceToEdit={loadPlaceToEdit}
         setTemp={addTemp}
+        // addPlace={addPlaceTemp}
       />
       <button onClick={addPlaceTemp}>AddTemp</button>
     </div>
